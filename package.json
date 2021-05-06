@@ -1,6 +1,6 @@
 {
   "name": "@yireo/vsf1-webpack-inheritance-plugin",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Webpack plugin for Vue Storefront 1 theme inheritance",
   "main": "index.js",
   "scripts": {
