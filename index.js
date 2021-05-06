@@ -4,14 +4,12 @@ const path = require("path");
 class InheritancePlugin {
   constructor(options) {
     this.name = options.name || "InheritancePlugin";
-    this.parentTheme = options.parent || "default";
+    this.parentPath = options.parentPath || path.resolve(__dirname, "..", "default");
+    this.childPath = options.childPath || __dirname;
     this.fileExtensions = options.fileExtensions || [".js", ".json", ".ts", ".vue", ".graphql"];
   }
 
   apply(resolver) {
-    const themePath = path.resolve(__dirname);
-    const parentThemePath = path.resolve(__dirname, "..", this.parentTheme);
-    
     const target = resolver.ensureHook("existing-file");
     resolver
       .getHook("raw-file")
@@ -22,7 +20,7 @@ class InheritancePlugin {
           return callback();
         }
 
-        let newPath = this.resolveFile(currentPath.replace(themePath, parentThemePath));
+        let newPath = this.resolveFile(currentPath.replace(this.childPath, this.parentPath));
 
         if (!this.fileExists(newPath)) {
           return callback();
